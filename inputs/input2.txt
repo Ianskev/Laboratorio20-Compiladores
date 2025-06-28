@@ -1,0 +1,12 @@
+fun void main()
+    var int x;
+    x = 3*2+5;
+    if (x == 3) then 
+        print(10)
+    endif
+    x = 20*3;
+    if (x == 60) then 
+        print(x)
+    endif
+    return(0)
+endfun
