@@ -39,7 +39,3 @@ El script realizará las siguientes acciones:
 ## Estructura de entrada
 
 Los archivos de entrada deben ubicarse en la carpeta `inputs/` con los nombres input1.txt, input2.txt, e input3.txt.
-
-## Autores
-
-- [Tu nombre aquí]

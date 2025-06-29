@@ -2,19 +2,10 @@ import ast
 import re
 from functools import reduce
 
-OPERATIONS = {
-    ast.Add: lambda x, y: x + y,
-    ast.Sub: lambda x, y: x - y,
-    ast.Mult: lambda x, y: x * y,
-    ast.Div: lambda x, y: x // y,
-}
-
 class ExpressionEvaluator:
-    """Evaluates constant expressions safely using AST"""
     
     @staticmethod
     def evaluate(expression_str):
-        """Try to evaluate a string expression to a constant value"""
         try:
             tree = ast.parse(expression_str.strip(), mode='eval')
             return ExpressionEvaluator._evaluate_node(tree)
@@ -23,7 +14,6 @@ class ExpressionEvaluator:
             
     @staticmethod
     def _evaluate_node(node):
-        """Recursively evaluate an AST node"""
         if isinstance(node, ast.Expression):
             return ExpressionEvaluator._evaluate_node(node.body)
             
@@ -52,7 +42,6 @@ class ExpressionEvaluator:
         raise TypeError(f"Unsupported node type: {type(node)}")
 
 class CodeOptimizer:
-    """Handles code optimization techniques"""
     
     def __init__(self, input_file, output_file):
         self.input_file = input_file
@@ -64,7 +53,6 @@ class CodeOptimizer:
         self.in_loop = False
         
     def optimize(self):
-        """Main optimization function"""
         with open(self.input_file, 'r') as source:
             source_lines = source.readlines()
         
@@ -75,7 +63,6 @@ class CodeOptimizer:
             dest.writelines(self.result_lines)
     
     def _process_line(self, line):
-        """Process a single line of code"""
         clean_line = line.strip()
         
 
@@ -123,7 +110,6 @@ class CodeOptimizer:
         self.result_lines.append(optimized_line)
     
     def _parse_assignment(self, line):
-        """Extract variable and expression from an assignment statement"""
         if "=" not in line:
             return None, None
             
@@ -133,7 +119,6 @@ class CodeOptimizer:
         return var_name, expression
     
     def _fold_constants(self, line):
-        """Replace constant expressions with their computed values"""
         modified_line = list(line)
         
         pattern = r'([=+\-*/<>=!]+)\s*([^;()\n]+)'
@@ -150,6 +135,12 @@ class CodeOptimizer:
         return ''.join(modified_line)
 
 def optimize(input_path, output_path):
-    """Perform code optimization on the given file"""
     optimizer = CodeOptimizer(input_path, output_path)
     optimizer.optimize()
+
+OPERATIONS = {
+    ast.Add: lambda x, y: x + y,
+    ast.Sub: lambda x, y: x - y,
+    ast.Mult: lambda x, y: x * y,
+    ast.Div: lambda x, y: x // y,
+}
